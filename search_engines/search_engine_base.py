@@ -4,5 +4,5 @@ sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from auto_cascade import *
 
 
-class SearchEngineBase(MyAbstractClass):
+class SearchEngineBaseClass(MyAbstractClass):
     abstract_methods = ('search', 'parse_magnet_results', 'parse_torrent_results')
