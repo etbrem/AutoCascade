@@ -1,6 +1,7 @@
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+MAIN_DIRECTORY = os.path.dirname(os.path.dirname(__file__))
+sys.path.append(MAIN_DIRECTORY)
 from auto_cascade import *
 from search_engine_base import SearchEngineBaseClass
 
@@ -8,6 +9,9 @@ import requests
 import string
 import bs4
 import re
+
+
+TEST_FILE = os.path.join(MAIN_DIRECTORY, "temp", "temp.txt")
 
 
 class SearchEngine(SearchEngineBaseClass):
@@ -25,7 +29,7 @@ class SearchEngine(SearchEngineBaseClass):
 
         response = requests.get(SearchEngine.URL, params)
         html = response.text
-        with open(r"C:\Users\USER\Desktop\EtStuff\Temp\temp.txt", "wb") as f:
+        with open(TEST_FILE, "wb") as f:
             f.write(html)
         return html
 
@@ -55,7 +59,7 @@ class SearchEngine(SearchEngineBaseClass):
         return items
 
 
-with open(r"C:\Users\USER\Desktop\EtStuff\Temp\temp.txt", "rb") as f:
+with open(TEST_FILE, "rb") as f:
     html = f.read()
     engine = SearchEngine()
     for item in engine.parse_magnet_results(html):
