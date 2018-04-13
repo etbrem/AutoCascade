@@ -1,7 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from AutoDW import *
+from auto_cascade import *
 
 
 class SearchEngineBase(MyAbstractClass):

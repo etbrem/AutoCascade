@@ -1,8 +1,8 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from AutoDW import *
-from SearchEngineBase import SearchEngineBaseClass
+from auto_cascade import *
+from search_engine_base import SearchEngineBaseClass
 
 import requests
 import string
