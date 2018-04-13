@@ -6,9 +6,6 @@ from auto_cascade import *
 import json
 
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "seen.json")
-
-
 class DBCommunication(MyAbstractClass):
     abstract_methods = ('db_flush', 'db_get', 'entry_add', 'entry_remove', 'entry_exists')
 
@@ -17,7 +14,9 @@ class DBCommunication(MyAbstractClass):
 
 
 class JsonDB(DBCommunication):
-    def __init__(self, db_path=DB_PATH):
+    DB_PATH = os.path.join(os.path.dirname(__file__), "seen.json")
+
+    def __init__(self, db_path=JsonDB.DB_PATH):
         self.db_path = db_path
         self.db = {}
 
