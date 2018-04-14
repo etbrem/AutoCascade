@@ -5,7 +5,7 @@ sys.path.append(MAIN_DIRECTORY)
 from auto_cascade import *
 
 
-class SearchEngineBaseClass(MyAbstractClass):
-    abstract_methods = ('search', 'parse_magnet_results', 'parse_torrent_results')
+class DownloaderBaseClass(MyAbstractClass):
+    abstract_methods = ('add_magnet_link', 'add_torrent_file')
 
 

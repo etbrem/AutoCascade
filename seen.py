@@ -1,6 +1,6 @@
 import sys
 import os
-MAIN_DIRECTORY = os.path.dirname(__file__)
+MAIN_DIRECTORY = os.path.dirname(__file__) or "."
 sys.path.append(MAIN_DIRECTORY)
 from auto_cascade import *
 
@@ -17,7 +17,7 @@ class DBCommunication(MyAbstractClass):
 class JsonDB(DBCommunication):
     DB_PATH = os.path.join(os.path.dirname(__file__), "seen.json")
 
-    def __init__(self, db_path=JsonDB.DB_PATH):
+    def __init__(self, db_path=DB_PATH):
         self.db_path = db_path
         self.db = {}
 
@@ -46,3 +46,8 @@ class JsonDB(DBCommunication):
 
     def entry_exists(self, entry):
         return entry.index in self.db_get()
+
+
+if __name__ == "__main__":
+    o = JsonDB()
+    print o.db_get()

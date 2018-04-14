@@ -1,3 +1,4 @@
+import re
 
 
 class MyAbstractClass(object):
@@ -20,20 +21,45 @@ class CustomObject(MyAbstractClass):
 
 
 class Magnet(CustomObject):
-    def __init__(self, title, magnet, **kargs):
+    def __init__(self, title, link, **attributes):
         self.title = title
-        self.magnet = magnet
+        self.link = link
 
-        for key, value in kargs.iteritems():
+        for key, value in attributes.iteritems():
             self.__setattr__(key, value)
 
 
-# def create_item_from_item_dict(item_dict):
-#     title = item_dict['item_title']
-#     magnet = item_dict['item_magnet']
+def parse_size_string(in_str):
+    REGEX_NUMBER = r'(\d+(?:\.\d+)?)'
 
-#     kargs = dict([(key[len("item_"):], val) for key, val in item_dict.copy().iteritems() if str(key).startswith("item_")])
-#     del kargs['title']
-#     del kargs['magnet']
+    multiplier = 1.0
+    if not("i" in in_str or ("b" not in in_str and "B" in in_str)):
+        multiplier *= 8
 
-#     return Magnet(title, magnet, **kargs)
+    in_str = in_str.lower()
+    sizes = {
+        "k": 1,
+        "m": 2,
+        "g": 3,
+        "t": 4
+    }
+
+    for s, m in sizes.iteritems():
+        if s in in_str:
+            multiplier *= 1024 ** m
+
+    match = re.search(REGEX_NUMBER, in_str)
+    if match:
+        multiplier *= float(match.group(1))
+    return multiplier
+
+
+def parse_date_string(date):
+    REGEX_UPLOAD_DATE = r'(\d\d)\-(\d\d)\s+(\d{4})'
+
+    month, day, year = -1, -1, -1
+    match = re.search(REGEX_UPLOAD_DATE, date)
+    if match:
+        month, day, year = [int(m) for m in match.groups()]
+
+    return day, month, year
